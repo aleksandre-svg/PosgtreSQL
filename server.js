@@ -1,8 +1,8 @@
-const express = require("express")
-const pool = require("./db");
-const PORT = process.env.PORT || 3000
-const app = express()
 require("dotenv").config();
+const express = require("express");
+const pool = require("./db");
+const PORT = process.env.PORT || 3000;
+const app = express();
 
 
 app.use(express.json())
@@ -17,10 +17,6 @@ const validateUser = async (req, res, next) => {
 
     try{
         console.log("User validated")
-        res.json({
-            status: 200,
-            message: "Succesfuly loged in"
-        })
 
         const result = await pool.query(
             "INSERT INTO users_accounts (username, password) VALUES ($1, $2) RETURNING *",
@@ -28,7 +24,6 @@ const validateUser = async (req, res, next) => {
         );
         
         res.json(result.rows[0]);
-        next()
     }catch(err) {
         return res.status(500).json({
             status: 500,
