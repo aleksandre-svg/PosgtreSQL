@@ -9,9 +9,9 @@ const sendData = (e) => {
     e.preventDefault()
     // PayLoad
     const info = new User(e.target.username.value, e.target.pass.value)
+    const url = "https://posgtresql-production.up.railway.app/api/login"
 
-
-    fetch('https://posgtresql-production.up.railway.app/login', {
+    fetch(url, {
         method: "POST",
         headers: {"Content-Type":"application/json"},
         body: JSON.stringify(info) 
