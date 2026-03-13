@@ -35,6 +35,11 @@ const validateUser = async (req, res, next) => {
         );
         
         res.json(result.rows[0]);
+
+        res.json({
+            status: 200,
+            message: "succes"
+        })
     }catch(err) {
         console.log(err.message)
     
