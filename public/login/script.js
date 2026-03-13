@@ -11,7 +11,7 @@ const sendData = (e) => {
     const info = new User(e.target.username.value, e.target.pass.value)
 
 
-    fetch('http://localhost:3000/login', {
+    fetch('https://posgtresql-production.up.railway.app/login', {
         method: "POST",
         headers: {"Content-Type":"application/json"},
         body: JSON.stringify(info)
