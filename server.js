@@ -37,10 +37,7 @@ const validateUser = async (req, res, next) => {
         res.json(result.rows[0]);
     }catch(err) {
         console.log(err.message)
-        return res.status(500).json({
-            status: 500,
-            message: "server error"
-        })
+    
     }
 }
 
