@@ -8,13 +8,12 @@ const app = express();
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    // Only use SSL if we are NOT on the internal network
     ssl: process.env.DATABASE_URL.includes("railway.internal") 
         ? false 
         : { rejectUnauthorized: false }
 });
 
-app.use(cors());
+app.use(cors())
 
 app.use(express.json())
 
@@ -35,14 +34,12 @@ const validateUser = async (req, res, next) => {
         );
         
         res.json(result.rows[0]);
-
-        res.json({
-            status: 200,
-            message: "succes"
-        })
     }catch(err) {
         console.log(err.message)
-    
+        return res.status(500).json({
+            status: 500,
+            message: "server error"
+        })
     }
 }
 
