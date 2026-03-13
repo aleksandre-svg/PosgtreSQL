@@ -8,9 +8,10 @@ const app = express();
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
+    // Only use SSL if we are NOT on the internal network
+    ssl: process.env.DATABASE_URL.includes("railway.internal") 
+        ? false 
+        : { rejectUnauthorized: false }
 });
 
 app.use(cors());
