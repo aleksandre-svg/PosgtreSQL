@@ -1,19 +1,10 @@
 require("dotenv").config();
-const { Pool } = require('pg');
 const express = require("express");
-const cors = require("cors")
-// const pool = require("./db");
+const pool = require("./db");
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: process.env.DATABASE_URL.includes("railway.internal") 
-        ? false 
-        : { rejectUnauthorized: false }
-});
 
-app.use(cors())
 
 app.use(express.json())
 
@@ -32,7 +23,10 @@ const validateUser = async (req, res, next) => {
             "INSERT INTO users_accounts (username, password) VALUES ($1, $2) RETURNING *",
             [username, password]
         );
-        
+        res.json({
+            status: 200,
+            message: "Succes"
+        })
         res.json(result.rows[0]);
     }catch(err) {
         console.log(err.message)
@@ -43,15 +37,7 @@ const validateUser = async (req, res, next) => {
     }
 }
 
-app.get("/check-db", async (req, res) => {
-    try {
-        const result = await pool.query("SELECT current_database()");
-        res.send(result.rows[0]);
-    } catch (err) {
-        console.error("Database connection error:", err.message);
-        res.status(500).send("DB connection failed: " + err.message);
-    }
-});
+
 
 app.post("/api/login", validateUser)
 

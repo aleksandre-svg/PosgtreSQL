@@ -7,9 +7,10 @@ function User(username, password){
 
 const sendData = (e) => {
     e.preventDefault()
-    // PayLoad
+    
     const info = new User(e.target.username.value, e.target.pass.value)
-    const url = "https://posgtresql-production.up.railway.app/api/login"
+
+    const url = "http://localhost:3000/api/login";
 
     fetch(url, {
         method: "POST",
