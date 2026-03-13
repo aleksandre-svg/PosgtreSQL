@@ -14,12 +14,11 @@ const sendData = (e) => {
     fetch('https://posgtresql-production.up.railway.app/login', {
         method: "POST",
         headers: {"Content-Type":"application/json"},
-        body: JSON.stringify(info)
+        body: JSON.stringify(info) 
     }).then(res => res.text())
         .then(data => {
             data = JSON.parse(data)
             console.log(data.status)
-
             alert(data.message)
         })
 }
